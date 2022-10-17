@@ -1,3 +1,4 @@
+import React, {Platform} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {setCustomText} from 'react-native-global-props';
 import {createNativeStackNavigator} from 'react-native-screens/native-stack';
@@ -6,13 +7,12 @@ import {createDatabase} from './utils/database';
 import HomeScreen from './components/Home/screen';
 import LoginScreen from './components/Login/screen';
 import {GrayScaleColors} from './styles/colors';
-import {Platform} from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
   useEffect(() => {
-    createDatabase();
+    createDatabase('SecuredTODOList');
     if (Platform.OS === 'android') {
       setCustomText({
         style: {

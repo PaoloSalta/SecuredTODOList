@@ -19,6 +19,7 @@ import {WebSQLDatabase} from 'expo-sqlite/src/SQLite.types';
 import {DI_DB_KEY} from '../../utils/database';
 import {GrayScaleColors, PaletteColors} from '../../styles/colors';
 import StyledButton from '../common/styled-button';
+import ItemController from './controller';
 
 const styles = StyleSheet.create({
   container: {
@@ -57,64 +58,42 @@ const HomeScreen: FC = () => {
     fetchItems();
   }, []);
 
-  const fetchItems = () => {
-    const db = Container.get<WebSQLDatabase>(DI_DB_KEY);
-    db.transaction(tx => {
-      tx.executeSql(
-        'SELECT * FROM items;',
-        [],
-        (_, resultSet) => {
-          console.log(resultSet);
-          setItems(
-            resultSet.rows._array.map(i => ({
-              id: i.id,
-              description: i.description,
-              completed: i.completed === 1,
-            })),
-          );
-        },
-        (transact, err) => {
-          console.log('Error during item extraction', err);
-          return false;
-        },
-      );
-    });
+  const fetchItems = async () => {
+    const set = await ItemController.fetchItems();
+    setItems(set);
   };
 
-  const createItem = () => {
-    const query = `INSERT INTO items (description) VALUES ('${input}');`;
-    executeDBCommand(query);
+  const createItem = async () => {
+    try {
+      await ItemController.createItem(input);
+      setInput('');
+      setSelectedItem(undefined);
+      fetchItems();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const updateItem = async () => {
-    const query = `UPDATE items SET description = '${input}' WHERE id = ${selcetedItem.id};`;
-    executeDBCommand(query);
+    try {
+      await ItemController.updateItem(selcetedItem.id, input);
+      setInput('');
+      setSelectedItem(undefined);
+      fetchItems();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const deleteItem = async (id: number) => {
-    const query = `DELETE FROM items WHERE id = ${id};`;
-    executeDBCommand(query);
-  };
-
-  const executeDBCommand = (command: string) => {
-    const db = Container.get<WebSQLDatabase>(DI_DB_KEY);
-    console.log(`Executing: ${command}`);
-    db.transaction(async trx => {
-      trx.executeSql(
-        command,
-        [],
-        (transact, resultset) => {
-          console.log('command executed');
-          setInput('');
-          setSelectedItem(undefined);
-          fetchItems();
-        },
-        (transact, err) => {
-          console.log('Error during command execution', err);
-          return false;
-        },
-      );
-    });
+    try {
+      await ItemController.deleteItem(id);
+      setInput('');
+      setSelectedItem(undefined);
+      fetchItems();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
