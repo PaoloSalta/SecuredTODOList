@@ -12,16 +12,17 @@
     "@react-navigation/native": "^6.0.13",
     "expo": "~46.0.16",
     "expo-local-authentication": "~12.3.0",
+    "expo-splash-screen": "~0.16.2",
     "expo-sqlite": "~10.3.0",
     "expo-status-bar": "~1.4.0",
     "react": "18.0.0",
+    "react-dom": "18.0.0",
     "react-native": "0.69.6",
+    "react-native-global-props": "^1.1.5",
     "react-native-safe-area-context": "4.3.1",
     "react-native-screens": "~3.15.0",
-    "typedi": "^0.10.0",
-    "expo-splash-screen": "~0.16.2",
-    "react-dom": "18.0.0",
-    "react-native-web": "~0.18.7"
+    "react-native-web": "~0.18.7",
+    "typedi": "^0.10.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

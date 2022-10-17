@@ -11,6 +11,7 @@ import {
   Button,
   Alert,
   StatusBar,
+  Platform,
 } from 'react-native';
 import {Item} from './model';
 import {Container} from 'typedi';
@@ -123,7 +124,9 @@ const HomeScreen: FC = () => {
         backgroundColor: GrayScaleColors.BACKGROUND,
       }}>
       <StatusBar barStyle="dark-content" />
-      <KeyboardAvoidingView behavior="padding" style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}>
         <Text style={styles.title}>TODO:</Text>
         <FlatList
           style={{flex: 1}}

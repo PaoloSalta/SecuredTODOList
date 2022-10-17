@@ -23,11 +23,13 @@ const styles = StyleSheet.create({
   componentContainer: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     paddingVertical: 32,
     fontSize: 28,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   imageContainer: {
     flex: 1,
