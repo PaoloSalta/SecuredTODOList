@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     backgroundColor: GrayScaleColors.WHITE,
     alignItems: 'center',
     paddingVertical: 16,
-    paddingHorizontal: 8,
+    paddingHorizontal: 16,
     borderRadius: 20,
   },
   itemContainer: {
@@ -165,7 +165,10 @@ const HomeScreen: FC = () => {
           {selcetedItem ? (
             <StyledButton onPress={() => updateItem()} title={'Update'} />
           ) : (
-            <StyledButton onPress={() => createItem()} title={'Add'} />
+            <StyledButton
+              onPress={() => input !== '' && createItem()}
+              title={'Add'}
+            />
           )}
         </View>
       </KeyboardAvoidingView>
