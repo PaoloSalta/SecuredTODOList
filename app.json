@@ -18,13 +18,18 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "This app uses Face ID to authenticate"
+      },
+      "bundleIdentifier": "com.PaoloSalta.SecuredTODOList"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.PaoloSalta.SecuredTODOList"
     },
     "web": {
       "favicon": "./assets/favicon.png"
